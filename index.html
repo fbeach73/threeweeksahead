@@ -324,6 +324,16 @@
 
   /* ---------- ASK FORM ---------- */
   .ask-section { background: var(--bg-card); }
+  .ask-avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: 60% 35%;
+    display: block;
+    margin: 0 auto 20px;
+    box-shadow: 0 0 0 1px var(--line), 0 6px 18px rgba(31,26,20,0.12);
+  }
   .ask-form {
     background: var(--bg);
     border-radius: 12px;
@@ -485,6 +495,7 @@
 <section class="ask-section" id="ask">
   <div class="container">
     <div class="center">
+      <img src="profile.jpg" alt="Kyle, who runs Three Weeks Ahead" class="ask-avatar" width="96" height="96">
       <div class="eyebrow">Ask Me Anything</div>
     </div>
     <h2 class="center">Got a question? I'll do my best to answer.</h2>
