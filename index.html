@@ -20,8 +20,9 @@
     --ink: #1F1A14;
     --ink-soft: #5C5346;
     --line: #E8E1D5;
-    --accent: #C4641A;        /* warm dawn amber — single accent */
-    --accent-hover: #A8531A;
+    --accent: #C4641A;        /* warm dawn amber — decorative accent */
+    --accent-cta: #A8531A;    /* button bg — white text passes AA (5.4:1) */
+    --accent-cta-hover: #8C4514;
     --accent-text: #9A4A12;   /* darker accent for small text — passes AA on --bg */
     --accent-soft: #FBF1E5;
   }
@@ -114,7 +115,7 @@
   }
   .hero-cta {
     display: inline-block;
-    background: var(--accent);
+    background: var(--accent-cta);
     color: #FFFFFF;
     padding: 16px 32px;
     border-radius: 8px;
@@ -125,7 +126,7 @@
     transition: all 150ms;
   }
   .hero-cta:hover {
-    background: var(--accent-hover);
+    background: var(--accent-cta-hover);
     box-shadow: 0 2px 6px rgba(0,0,0,0.25);
     transform: translateY(-1px);
   }
@@ -299,7 +300,7 @@
   button.primary {
     width: 100%;
     padding: 14px 24px;
-    background: var(--accent);
+    background: var(--accent-cta);
     color: #FFFFFF;
     border: none;
     border-radius: 8px;
@@ -311,7 +312,7 @@
     font-family: inherit;
   }
   button.primary:hover {
-    background: var(--accent-hover);
+    background: var(--accent-cta-hover);
     box-shadow: 0 2px 6px rgba(0,0,0,0.15);
   }
   .form-note {
