@@ -22,6 +22,7 @@
     --line: #E8E1D5;
     --accent: #C4641A;        /* warm dawn amber — single accent */
     --accent-hover: #A8531A;
+    --accent-text: #9A4A12;   /* darker accent for small text — passes AA on --bg */
     --accent-soft: #FBF1E5;
   }
 
@@ -152,7 +153,7 @@
     font-weight: 600;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--accent-text);
     margin-bottom: 16px;
   }
   h2 {
@@ -223,7 +224,7 @@
     opacity: 0.6;
     margin-bottom: 16px;
   }
-  .guide-preview h4 {
+  .guide-preview-title {
     font-family: 'Fraunces', serif;
     font-size: 28px;
     line-height: 1.15;
@@ -288,6 +289,7 @@
   input:focus, textarea:focus, select:focus {
     outline: none;
     border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(196,100,26,0.25);
   }
   textarea {
     min-height: 120px;
@@ -411,6 +413,8 @@
   <a href="#guide" class="nav-link">Get the Guide</a>
 </nav>
 
+<main>
+
 <!-- HERO -->
 <section class="hero">
   <div class="hero-inner">
@@ -445,7 +449,7 @@
         <div class="guide-preview">
           <div>
             <div class="guide-preview-eyebrow">Three Weeks Ahead</div>
-            <h4>The First 30 Days After Bypass</h4>
+            <div class="guide-preview-title">The First 30 Days After Bypass</div>
           </div>
           <div class="guide-preview-footer">What I wish I'd known · A peer-to-peer guide</div>
         </div>
@@ -466,7 +470,7 @@
             </div>
             <button type="submit" class="primary">Send Me the Guide</button>
             <div class="form-note">Free · Unsubscribe with one click</div>
-            <div class="success" id="signup-success">
+            <div class="success" id="signup-success" role="status" aria-live="polite">
               Thank you. Check your inbox in the next few minutes.
             </div>
           </form>
@@ -513,13 +517,15 @@
           <textarea id="ask-question" name="question" required placeholder="Ask anything..."></textarea>
         </div>
         <button type="submit" class="primary">Send Question</button>
-        <div class="success" id="ask-success">
+        <div class="success" id="ask-success" role="status" aria-live="polite">
           Thank you. I read every question that comes in.
         </div>
       </form>
     </div>
   </div>
 </section>
+
+</main>
 
 <!-- FOOTER -->
 <footer>
