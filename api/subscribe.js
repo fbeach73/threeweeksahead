@@ -6,6 +6,7 @@ const sql = postgres(process.env.POSTGRES_URL);
 const ses = new SESv2Client({ region: process.env.AWS_REGION || "us-east-1" });
 
 const FROM = process.env.SES_FROM_EMAIL || "kyle@threeweeksahead.com";
+const ADMIN_NOTIFY = process.env.ADMIN_NOTIFY_EMAIL || "kyle@threeweeksahead.com";
 
 const WELCOME_SUBJECT = "Thanks — you're on the list";
 
@@ -91,6 +92,29 @@ export default async function handler(req, res) {
     } catch (err) {
       // Best-effort: subscriber is captured even if SES has a hiccup.
       console.error("[subscribe] SES send failed:", err);
+    }
+
+    // Admin notification — fire-and-forget.
+    try {
+      await ses.send(
+        new SendEmailCommand({
+          FromEmailAddress: FROM,
+          Destination: { ToAddresses: [ADMIN_NOTIFY] },
+          Content: {
+            Simple: {
+              Subject: { Data: `New subscriber: ${email}`, Charset: "UTF-8" },
+              Body: {
+                Text: {
+                  Data: `${email} just subscribed at threeweeksahead.com\n\nTime: ${new Date().toISOString()}`,
+                  Charset: "UTF-8",
+                },
+              },
+            },
+          },
+        })
+      );
+    } catch (err) {
+      console.error("[subscribe] Admin notification failed:", err);
     }
   }
 
