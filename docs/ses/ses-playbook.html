@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SES Setup Playbook — Kyle's Stack</title>
+<style>
+  :root {
+    --bg: #FAF7F2;
+    --card: #FFFFFF;
+    --ink: #1F1A14;
+    --ink-soft: #5C5346;
+    --line: #E8E1D5;
+    --accent: #C4641A;
+    --accent-soft: #FBF1E5;
+    --code-bg: #1F1A14;
+    --code-fg: #FAF7F2;
+    --warn: #B85A16;
+    --ok: #2E7D32;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    padding: 32px 16px 80px;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; }
+  header {
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 16px;
+    margin-bottom: 24px;
+  }
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+  header p { color: var(--ink-soft); font-size: 14px; }
+  .domain-input {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 20px 0 32px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .domain-input label {
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .domain-input input {
+    flex: 1;
+    min-width: 220px;
+    padding: 10px 14px;
+    font-family: ui-monospace, Menlo, monospace;
+    font-size: 14px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--bg);
+    color: var(--ink);
+  }
+  .domain-input input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(196,100,26,0.18);
+  }
+  .domain-input .hint { font-size: 12px; color: var(--ink-soft); }
+  .quick-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 36px;
+  }
+  .quick-links a {
+    background: var(--card);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .quick-links a:hover { border-color: var(--accent); color: var(--accent); }
+  section {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 24px 28px;
+    margin-bottom: 20px;
+  }
+  section h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+  section h2 .step-num {
+    color: var(--accent);
+    font-family: ui-monospace, Menlo, monospace;
+    font-size: 14px;
+    background: var(--accent-soft);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+  section h3 { font-size: 15px; font-weight: 600; margin: 18px 0 8px; }
+  section p { margin: 8px 0; color: var(--ink); }
+  section ul, section ol { padding-left: 22px; margin: 8px 0; }
+  section li { margin-bottom: 6px; }
+  code, .mono {
+    font-family: ui-monospace, Menlo, monospace;
+    font-size: 13px;
+    background: var(--accent-soft);
+    color: var(--ink);
+    padding: 1px 6px;
+    border-radius: 3px;
+  }
+  pre {
+    background: var(--code-bg);
+    color: var(--code-fg);
+    padding: 16px 20px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: ui-monospace, Menlo, monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 12px 0;
+  }
+  pre code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    font-size: 13px;
+  }
+  th, td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  th {
+    font-weight: 600;
+    background: var(--bg);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  td code { background: transparent; padding: 0; }
+  .pill {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .pill.grey { background: #E5E5E5; color: #444; }
+  .pill.warn { background: #FFE9D6; color: var(--warn); }
+  .pill.ok { background: #E2F1E4; color: var(--ok); }
+  .callout {
+    background: var(--accent-soft);
+    border-left: 3px solid var(--accent);
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin: 12px 0;
+    font-size: 14px;
+  }
+  .callout strong { color: var(--accent); }
+  .gotcha {
+    background: #FFF4E6;
+    border-left: 3px solid var(--warn);
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin: 12px 0;
+    font-size: 14px;
+  }
+  a.ext {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--accent);
+  }
+  a.ext:hover { border-bottom-style: solid; }
+  .domain { font-weight: 600; color: var(--accent); }
+  .anchor-list {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 24px;
+    columns: 2;
+    column-gap: 24px;
+    font-size: 14px;
+  }
+  .anchor-list a { color: var(--ink); text-decoration: none; display: block; padding: 4px 0; }
+  .anchor-list a:hover { color: var(--accent); }
+  .anchor-list .num { color: var(--ink-soft); font-family: ui-monospace, Menlo, monospace; margin-right: 8px; }
+  hr { border: none; border-top: 1px solid var(--line); margin: 12px 0; }
+  footer { text-align: center; color: var(--ink-soft); font-size: 12px; margin-top: 40px; }
+  @media (max-width: 600px) {
+    .anchor-list { columns: 1; }
+    section { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>SES Setup Playbook</h1>
+  <p>Per-site checklist for adding Amazon SES to a /cc/ property — Kyle's stack (Vercel, Cloudflare DNS, Neon Postgres, IAM user <code>rpl-ses-sender</code>, region <code>us-east-1</code>).</p>
+</header>
+
+<div class="domain-input">
+  <label for="dom">Site domain:</label>
+  <input id="dom" type="text" value="threeweeksahead.com" autocomplete="off" spellcheck="false">
+  <span class="hint">Type once — every <span class="domain">{{domain}}</span> below auto-updates.</span>
+</div>
+
+<div class="quick-links">
+  <a class="ext" href="https://us-east-1.console.aws.amazon.com/ses/home?region=us-east-1#/identities" target="_blank">SES → Identities</a>
+  <a class="ext" href="https://us-east-1.console.aws.amazon.com/ses/home?region=us-east-1#/configuration-sets" target="_blank">SES → Config Sets</a>
+  <a class="ext" href="https://us-east-1.console.aws.amazon.com/sns/v3/home?region=us-east-1#/topics" target="_blank">SNS → Topics</a>
+  <a class="ext" href="https://us-east-1.console.aws.amazon.com/iam/home#/users" target="_blank">IAM → Users</a>
+  <a class="ext" href="https://dash.cloudflare.com/" target="_blank">Cloudflare DNS</a>
+  <a class="ext" href="https://vercel.com/dashboard" target="_blank">Vercel</a>
+  <a class="ext" href="https://console.neon.tech/" target="_blank">Neon</a>
+</div>
+
+<div class="anchor-list">
+  <a href="#s0"><span class="num">0</span>Overview</a>
+  <a href="#s1"><span class="num">1</span>Verify domain in SES</a>
+  <a href="#s2"><span class="num">2</span>Cloudflare DNS records</a>
+  <a href="#s3"><span class="num">3</span>IAM credentials (reuse)</a>
+  <a href="#s4"><span class="num">4</span>Code integration</a>
+  <a href="#s5"><span class="num">5</span>Vercel env vars</a>
+  <a href="#s6"><span class="num">6</span>Smoke test</a>
+  <a href="#s7"><span class="num">7</span>(Optional) Event tracking</a>
+  <a href="#g"><span class="num">!</span>Common gotchas</a>
+</div>
+
+<section id="s0">
+  <h2><span class="step-num">0</span>Overview</h2>
+  <p>Adding any new site to SES is the same pattern. Production access is account-wide and already granted — never need to wait again. For each new site:</p>
+  <ol>
+    <li><strong>Verify the domain</strong> in SES (DKIM + custom MAIL FROM).</li>
+    <li><strong>Add DNS records</strong> in Cloudflare (3 DKIM CNAMEs + bounce MX/SPF + DMARC).</li>
+    <li><strong>Reuse the IAM keys</strong> from <code>rpl-ses-sender</code> — same access works for every domain in this account.</li>
+    <li><strong>Wire the code</strong> — either copy the RPL pattern for transactional, or for a one-pager just a single Vercel function.</li>
+    <li><strong>Set Vercel env vars</strong> and deploy.</li>
+    <li><strong>Smoke test</strong> — send + verify.</li>
+  </ol>
+  <p>For higher-traffic sites (or where you want delivery/bounce/complaint logging to your DB), also do step 7.</p>
+</section>
+
+<section id="s1">
+  <h2><span class="step-num">1</span>Verify domain in SES</h2>
+  <ol>
+    <li>Open <a class="ext" href="https://us-east-1.console.aws.amazon.com/ses/home?region=us-east-1#/identities" target="_blank">SES → Verified identities</a> (region <strong>US East — N. Virginia</strong> top-right).</li>
+    <li>Click <strong>Create identity</strong> → <strong>Domain</strong>.</li>
+    <li>Enter <span class="domain">{{domain}}</span>.</li>
+    <li>Under <strong>Advanced DKIM settings</strong>, Identity type: pick <strong>Easy DKIM</strong> (not <em>Deterministic Easy DKIM</em>, which is for cross-region replication, nor <em>BYODKIM</em>, which is Mailgun-style bring-your-own-key).</li>
+    <li><strong>DKIM signing key length:</strong> pick <strong>RSA_2048_BIT</strong> (AWS-recommended; no downside — doesn't affect the CNAMEs).</li>
+    <li><strong>Publish DNS records to Route53:</strong> ignore — only relevant if DNS were on Route 53. Yours is Cloudflare, so this has no effect.</li>
+    <li><strong>DKIM signatures:</strong> keep <strong>Enabled</strong>.</li>
+    <li>Tick <strong>Use a custom MAIL FROM domain</strong>. MAIL FROM subdomain: <code>bounce.<span class="domain">{{domain}}</span></code>. Leave <em>Behavior on MX failure</em> as default.</li>
+    <li>For DMARC the form pre-fills the TXT — fine, leave <code>p=none;</code> as the value.</li>
+    <li>Click <strong>Create identity</strong>. SES gives you a screen of DNS records — keep that tab open for step 2.</li>
+  </ol>
+  <div class="callout"><strong>Reminder:</strong> SES uses <strong>CNAME</strong> for DKIM (different from Mailgun's TXT). Don't go looking for a public key/hash — Amazon holds it.</div>
+</section>
+
+<section id="s2">
+  <h2><span class="step-num">2</span>Cloudflare DNS records</h2>
+  <p>Open <a class="ext" href="https://dash.cloudflare.com/" target="_blank">Cloudflare</a> → <span class="domain">{{domain}}</span> → <strong>DNS → Records</strong>. Add these (copy each row from the SES identity page):</p>
+  <table>
+    <thead><tr><th>#</th><th>Type</th><th>Name</th><th>Value</th><th>Proxy</th></tr></thead>
+    <tbody>
+      <tr><td>1–3</td><td>CNAME</td><td><code>xxxx._domainkey</code> (3 of them)</td><td><code>xxxx.dkim.amazonses.com</code></td><td><span class="pill grey">DNS only</span></td></tr>
+      <tr><td>4</td><td>MX</td><td><code>bounce</code></td><td><code>feedback-smtp.us-east-1.amazonses.com</code> · priority <code>10</code></td><td><span class="pill grey">DNS only</span></td></tr>
+      <tr><td>5</td><td>TXT</td><td><code>bounce</code></td><td><code>v=spf1 include:amazonses.com ~all</code></td><td><span class="pill grey">DNS only</span></td></tr>
+      <tr><td>6</td><td>TXT</td><td><code>_dmarc</code></td><td><code>v=DMARC1; p=none;</code></td><td><span class="pill grey">DNS only</span></td></tr>
+    </tbody>
+  </table>
+  <div class="gotcha">
+    <strong>Two Cloudflare gotchas that will burn you:</strong>
+    <ul>
+      <li><strong>Name field:</strong> type just <code>xxxx._domainkey</code>, <strong>not</strong> <code>xxxx._domainkey.<span class="domain">{{domain}}</span></code>. Cloudflare auto-appends the zone. Double-appending makes the record invisible.</li>
+      <li><strong>DKIM CNAMEs must be grey-clouded</strong> (DNS only). Orange proxied = DKIM breaks = no verification.</li>
+    </ul>
+  </div>
+  <p>After saving, refresh the SES identity page. <strong>Identity status</strong> should flip to <span class="pill ok">Verified</span> and <strong>DKIM</strong> to <span class="pill ok">Successful</span> within a few minutes on Cloudflare.</p>
+</section>
+
+<section id="s3">
+  <h2><span class="step-num">3</span>IAM credentials — reuse <code>rpl-ses-sender</code></h2>
+  <p>Don't create a new IAM user per site. The existing <code>rpl-ses-sender</code> has account-wide SES send permission, which covers every verified domain in the account.</p>
+  <p>You'll reuse these two values across every site:</p>
+  <pre><code>AWS_ACCESS_KEY_ID       = (rpl-ses-sender key)
+AWS_SECRET_ACCESS_KEY   = (rpl-ses-sender secret)
+AWS_REGION              = us-east-1</code></pre>
+  <p>If you lost the secret, you can't retrieve it — delete the access key in <a class="ext" href="https://us-east-1.console.aws.amazon.com/iam/home#/users/details/rpl-ses-sender?section=security_credentials" target="_blank">IAM</a> and create a new one.</p>
+</section>
+
+<section id="s4">
+  <h2><span class="step-num">4</span>Code integration</h2>
+  <h3>Option A — Single Vercel function (simple sites / one-pagers)</h3>
+  <p>Static HTML + one serverless function at <code>api/subscribe.js</code> (or similar). The threeweeksahead repo is the canonical example. Send via <code>@aws-sdk/client-sesv2</code>, store subscribers in Neon.</p>
+  <div class="callout"><strong>Don't forget the table.</strong> The Neon SQL Editor needs the schema run once — without it the function returns <code>"Could not save subscription"</code>. Paste this:
+  <pre><code>CREATE TABLE IF NOT EXISTS subscribers (
+  id BIGSERIAL PRIMARY KEY,
+  email TEXT NOT NULL UNIQUE,
+  source TEXT,
+  status TEXT NOT NULL DEFAULT 'active',
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  unsubscribed_at TIMESTAMPTZ
+);
+CREATE INDEX IF NOT EXISTS subscribers_status_idx ON subscribers(status);</code></pre>
+  </div>
+
+  <h3>Option B — Provider switch + webhook (apps with multiple email types)</h3>
+  <p>RPL is the canonical example. Pattern:</p>
+  <ul>
+    <li><code>src/lib/ses.ts</code> — mirrors the Mailgun send signature; uses Raw MIME for PDF attachments.</li>
+    <li><code>src/lib/email-provider.ts</code> — switches on <code>EMAIL_PROVIDER=ses|mailgun</code>. Defaults to mailgun for instant rollback.</li>
+    <li>One aliased import in <code>email.ts</code>; mailgun.ts stays untouched.</li>
+    <li>Drop in <code>/api/webhooks/ses</code> and the <code>email_events</code> Drizzle table only if doing step 7.</li>
+  </ul>
+
+  <h3>For newsletter sends</h3>
+  <p>Don't build per-site. Use the central hub (fork of <code>newsletter-pro</code>) once it's wired to SES. Each site still sends from <strong>its own <code>news.{{domain}}</code> subdomain</strong> for reputation separation — the hub authenticates with SES and picks the right From/config set.</p>
+</section>
+
+<section id="s5">
+  <h2><span class="step-num">5</span>Vercel env vars</h2>
+  <p>In <a class="ext" href="https://vercel.com/dashboard" target="_blank">Vercel</a> → the project → <strong>Settings → Environment Variables</strong> (Production scope; also Preview if you want):</p>
+
+  <h3>Minimal (simple transactional, no event tracking)</h3>
+  <pre><code>EMAIL_PROVIDER          = ses          # only needed if using the provider switch
+AWS_REGION              = us-east-1
+AWS_ACCESS_KEY_ID       = (rpl-ses-sender)
+AWS_SECRET_ACCESS_KEY   = (rpl-ses-sender)
+SES_FROM_EMAIL          = kyle@<span class="domain">{{domain}}</span></code></pre>
+
+  <h3>With Neon storage (e.g. signup forms)</h3>
+  <pre><code>POSTGRES_URL            = (Neon connection string)</code></pre>
+
+  <h3>With event tracking (step 7)</h3>
+  <pre><code>SES_CONFIGURATION_SET   = &lt;config-set-name&gt;
+SES_SNS_TOPIC_ARN       = arn:aws:sns:us-east-1:...:&lt;topic-name&gt;</code></pre>
+
+  <div class="callout"><strong>After adding env vars, you must redeploy</strong> — Vercel doesn't apply new env to existing deployments. Either push a commit, or <em>Deployments → ⋯ → Redeploy</em>.</div>
+</section>
+
+<section id="s6">
+  <h2><span class="step-num">6</span>Smoke test</h2>
+
+  <h3>If site has a test endpoint (e.g. RPL)</h3>
+  <pre><code>curl -s "https://www.<span class="domain">{{domain}}</span>/api/test-email?email=kyle@<span class="domain">{{domain}}</span>"</code></pre>
+  <p>Expect <code>{"success":true,...}</code> and the email in your inbox.</p>
+
+  <h3>If site has a signup form</h3>
+  <pre><code>curl -s -X POST "https://<span class="domain">{{domain}}</span>/api/subscribe" \
+  -H "Content-Type: application/json" \
+  -d '{"email":"kyle@<span class="domain">{{domain}}</span>"}'</code></pre>
+
+  <h3>Confirm event landed in DB (if step 7 enabled)</h3>
+  <p>RPL has <code>scripts/check_events.mjs</code> — copy-paste it into any site's repo and adjust the table name. Or query Neon directly:</p>
+  <pre><code>SELECT id, event_type, recipient, message_id, created_at
+FROM email_events
+ORDER BY id DESC LIMIT 10;</code></pre>
+</section>
+
+<section id="s7">
+  <h2><span class="step-num">7</span>(Optional) Event tracking — Config Set + SNS</h2>
+  <p>Only worth doing for sites where you want delivery/bounce/complaint events streamed into your own database. Skip for one-pagers with a single welcome email; the SES dashboard's account-wide bounce/complaint rates are enough at low volume.</p>
+
+  <ol>
+    <li><strong>Create SNS topic</strong> — <a class="ext" href="https://us-east-1.console.aws.amazon.com/sns/v3/home?region=us-east-1#/topics" target="_blank">SNS → Topics</a> → Create → <strong>Standard</strong> → name e.g. <code>&lt;site&gt;-ses-events</code>. Copy the ARN.</li>
+    <li><strong>Subscribe</strong> the topic to your webhook: Protocol HTTPS, Endpoint <code>https://www.<span class="domain">{{domain}}</span>/api/webhooks/ses</code> (use <code>www.</code> if your apex 301/307-redirects). Leave raw delivery OFF. Your handler auto-confirms.</li>
+    <li><strong>Create Config Set</strong> in <a class="ext" href="https://us-east-1.console.aws.amazon.com/ses/home?region=us-east-1#/configuration-sets" target="_blank">SES</a> → name e.g. <code>&lt;site&gt;-transactional</code>.</li>
+    <li>On the Config Set → <strong>Event destinations → Add</strong>. Events: Sends, Deliveries, Hard bounces, Complaints. Destination: Amazon SNS → pick your topic.</li>
+    <li>In your app's code, ensure <code>ConfigurationSetName</code> is attached to every <code>SendEmailCommand</code>. (RPL's <code>ses.ts</code> reads from <code>SES_CONFIGURATION_SET</code>.)</li>
+    <li>Set Vercel env: <code>SES_CONFIGURATION_SET</code> + <code>SES_SNS_TOPIC_ARN</code> → redeploy.</li>
+  </ol>
+</section>
+
+<section id="g">
+  <h2><span class="step-num">!</span>Common gotchas</h2>
+  <ul>
+    <li><strong>Cloudflare orange-cloud on CNAME</strong> → DKIM breaks. Always grey-cloud DKIM/MX/SPF/DMARC.</li>
+    <li><strong>Double-append on Cloudflare name field</strong> → record never resolves. Type <code>_dmarc</code>, not <code>_dmarc.<span class="domain">{{domain}}</span></code>.</li>
+    <li><strong>US vs EU SES dashboard</strong> → completely separate. Confirm region <code>us-east-1</code> in the top-right before doing anything.</li>
+    <li><strong>Apex redirects</strong> (e.g. <code><span class="domain">{{domain}}</span></code> → <code>www.<span class="domain">{{domain}}</span></code>) confuse SNS HTTPS subscriptions. Always subscribe to the <strong>www</strong> (or whatever's the 200, not the 307).</li>
+    <li><strong>Sandbox vs production</strong> → granted <em>once per AWS account</em>, account-wide. New domains in the same account skip the wait.</li>
+    <li><strong>"More information needed"</strong> on the SES home page is your production-access support case status, not a missing setup step. It changes when AWS reviews your reply.</li>
+    <li><strong>Vercel env changes need a redeploy</strong> — they don't apply to existing deployments.</li>
+    <li><strong>MAIL FROM subdomain conflict</strong> — don't pick a subdomain that already hosts another mail system (e.g. Mailgun on <code>mail.<span class="domain">{{domain}}</span></code>). Use <code>bounce.</code>.</li>
+    <li><strong>VDM (Virtual Deliverability Manager)</strong> is on by default in newer SES accounts and adds a small per-message surcharge for open/click tracking. Disable in SES → VDM if you want pure <code>$0.10/1k</code> pricing.</li>
+  </ul>
+</section>
+
+<footer>
+  Local playbook · <code>/Users/kylesweezey/cc/ses-playbook.html</code> · ask Claude to update when patterns change.
+</footer>
+
+</div>
+
+<script>
+  // Live-replace every {{domain}} marker (and a few derived strings) as the user types.
+  const input = document.getElementById("dom");
+  const markers = document.querySelectorAll(".domain");
+  function applyDomain(value) {
+    const d = (value || "").trim().toLowerCase() || "example.com";
+    markers.forEach(el => el.textContent = d);
+    document.title = "SES Playbook — " + d;
+  }
+  applyDomain(input.value);
+  input.addEventListener("input", e => applyDomain(e.target.value));
+
+  // Persist the last-typed domain across reloads.
+  const saved = localStorage.getItem("ses-playbook-domain");
+  if (saved) { input.value = saved; applyDomain(saved); }
+  input.addEventListener("change", () => localStorage.setItem("ses-playbook-domain", input.value.trim()));
+</script>
+</body>
+</html>
