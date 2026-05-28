@@ -552,13 +552,27 @@
 </footer>
 
 <script>
-  // Placeholder handlers — wire to ConvertKit / MailerLite / Formspree / Cloudflare Worker later
-  function handleSignup(e) {
+  async function handleSignup(e) {
     e.preventDefault();
-    const email = document.getElementById('email').value;
-    console.log('Signup:', email);
-    document.getElementById('signup-success').classList.add('show');
-    document.getElementById('signup-form').reset();
+    const form = document.getElementById('signup-form');
+    const button = form.querySelector('button[type="submit"]');
+    const email = document.getElementById('email').value.trim();
+    button.disabled = true;
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+      if (!res.ok) throw new Error('Subscribe failed');
+      document.getElementById('signup-success').classList.add('show');
+      form.reset();
+    } catch (err) {
+      console.error(err);
+      alert("Something went wrong. Please try again in a moment.");
+    } finally {
+      button.disabled = false;
+    }
     return false;
   }
   function handleAsk(e) {
