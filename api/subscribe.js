@@ -8,6 +8,40 @@ const ses = new SESv2Client({ region: process.env.AWS_REGION || "us-east-1" });
 const FROM = process.env.SES_FROM_EMAIL || "kyle@threeweeksahead.com";
 const ADMIN_NOTIFY = process.env.ADMIN_NOTIFY_EMAIL || "kyle@threeweeksahead.com";
 
+// Hybrid newsletter: Neon is the system of record, beehiiv is the broadcast
+// tool. We mirror new subscribers into beehiiv but tell it NOT to send its own
+// welcome — the SES welcome above is the only welcome. Best-effort; a beehiiv
+// hiccup never blocks the Neon insert.
+async function syncToBeehiiv(email) {
+  const apiKey = process.env.BEEHIIV_API_KEY;
+  const pubId = process.env.BEEHIIV_PUBLICATION_ID;
+  if (!apiKey || !pubId) return; // beehiiv not configured yet — skip silently
+  try {
+    const r = await fetch(
+      `https://api.beehiiv.com/v2/publications/${pubId}/subscriptions`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({
+          email,
+          reactivate_existing: true,
+          send_welcome_email: false,
+          utm_source: "threeweeksahead.com",
+          referring_site: "threeweeksahead.com",
+        }),
+      }
+    );
+    if (!r.ok) {
+      console.error("[subscribe] beehiiv sync failed:", r.status, await r.text());
+    }
+  } catch (err) {
+    console.error("[subscribe] beehiiv sync error:", err);
+  }
+}
+
 const WELCOME_SUBJECT = "Thanks — you're on the list";
 
 const WELCOME_HTML = `<!DOCTYPE html>
@@ -116,6 +150,9 @@ export default async function handler(req, res) {
     } catch (err) {
       console.error("[subscribe] Admin notification failed:", err);
     }
+
+    // Mirror into beehiiv for broadcasting (no-op until env vars are set).
+    await syncToBeehiiv(email);
   }
 
   return res.status(200).json({ success: true });

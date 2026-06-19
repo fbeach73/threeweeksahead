@@ -544,7 +544,9 @@
   <div class="footer-brand">Three Weeks Ahead</div>
   <div class="footer-tag">Turning around to light the path.</div>
   <div class="footer-links">
-    <a href="https://youtube.com/@threeweeksahead" target="_blank" rel="noopener">YouTube</a>
+    <a href="https://www.youtube.com/@threeweeksahead" target="_blank" rel="noopener">YouTube</a>
+    <a href="https://www.instagram.com/3weeksahead/" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.facebook.com/threeweeksahead/" target="_blank" rel="noopener">Facebook</a>
     <a href="#guide">Get the Guide</a>
     <a href="#ask">Ask a Question</a>
   </div>
@@ -575,16 +577,31 @@
     }
     return false;
   }
-  function handleAsk(e) {
+  async function handleAsk(e) {
     e.preventDefault();
-    console.log('Ask:', {
-      name: document.getElementById('ask-name').value,
-      email: document.getElementById('ask-email').value,
-      stage: document.getElementById('ask-stage').value,
-      question: document.getElementById('ask-question').value
-    });
-    document.getElementById('ask-success').classList.add('show');
-    document.getElementById('ask-form-el').reset();
+    const form = document.getElementById('ask-form-el');
+    const button = form.querySelector('button[type="submit"]');
+    if (button) button.disabled = true;
+    try {
+      const res = await fetch('/api/ask', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: document.getElementById('ask-name').value,
+          email: document.getElementById('ask-email').value,
+          stage: document.getElementById('ask-stage').value,
+          question: document.getElementById('ask-question').value
+        })
+      });
+      if (!res.ok) throw new Error('Ask failed');
+      document.getElementById('ask-success').classList.add('show');
+      form.reset();
+    } catch (err) {
+      console.error(err);
+      alert("Something went wrong. Please try again in a moment.");
+    } finally {
+      if (button) button.disabled = false;
+    }
     return false;
   }
 </script>
