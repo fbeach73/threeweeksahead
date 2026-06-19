@@ -67,6 +67,25 @@
     justify-content: space-between;
     align-items: center;
   }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+  .nav-mark {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    object-fit: cover;
+    flex: none;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.3), 0 6px 20px rgba(196,100,26,0.45);
+    transition: box-shadow 200ms ease;
+  }
+  .nav-logo:hover .nav-mark {
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.45), 0 6px 28px rgba(196,100,26,0.62);
+  }
   .nav-brand {
     font-family: 'Fraunces', serif;
     font-weight: 600;
@@ -416,7 +435,12 @@
     }
     .ask-form { padding: 24px; }
     nav { padding: 20px 24px; }
+    .nav-mark { width: 40px; height: 40px; }
     .footer-links { flex-wrap: wrap; gap: 16px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav-mark { transition: none; }
   }
 
   /* ---------- SUCCESS MSG ---------- */
@@ -478,7 +502,10 @@
 <body>
 
 <nav>
-  <div class="nav-brand">Three Weeks Ahead</div>
+  <a href="/" class="nav-logo" aria-label="Three Weeks Ahead — home">
+    <img src="/logo.png" alt="" class="nav-mark" width="44" height="44">
+    <span class="nav-brand">Three Weeks Ahead</span>
+  </a>
   <a href="#guide" class="nav-link">Get the Guide</a>
 </nav>
 
