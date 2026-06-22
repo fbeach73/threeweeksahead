@@ -3,3 +3,8 @@ node_modules/
 .env
 .env.*
 .vercel
+
+# Private / never deploy — medical records, graphic recovery photos, scratch assets
+claude-project-files/
+downloads/
+random_ignore/
