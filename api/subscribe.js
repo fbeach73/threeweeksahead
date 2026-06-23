@@ -83,7 +83,7 @@ const welcomeHtml = (guideUrl, unsub) => `<!DOCTYPE html>
           <p style="font-size:16px;line-height:1.6;margin:0;color:#1F1A14;">— Kyle</p>
         </td></tr>
       </table>
-      <p style="font-size:12px;color:#5C5346;margin:16px 0 0;">threeweeksahead.com${unsub ? ` &middot; <a href="${unsub}" style="color:#5C5346;text-decoration:underline;">Unsubscribe</a>` : ""}</p>
+      <p style="font-size:12px;color:#5C5346;line-height:1.5;margin:16px 0 0;">Three Weeks Ahead &middot; 828 Route 636, Harvey, NB, Canada E6K 3G4<br>threeweeksahead.com${unsub ? ` &middot; <a href="${unsub}" style="color:#5C5346;text-decoration:underline;">Unsubscribe</a>` : ""}</p>
     </td></tr>
   </table>
 </body></html>`;
@@ -102,6 +102,8 @@ question that helped someone else, something I wish I'd known.
 
 — Kyle
 threeweeksahead.com
+
+Three Weeks Ahead · 828 Route 636, Harvey, NB, Canada E6K 3G4
 ${unsub ? `\nUnsubscribe: ${unsub}` : ""}`;
 
 export default async function handler(req, res) {
