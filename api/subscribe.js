@@ -1,5 +1,6 @@
 import postgres from "postgres";
 import { SESv2Client, SendEmailCommand } from "@aws-sdk/client-sesv2";
+import crypto from "node:crypto";
 
 // Module-scoped clients are reused across warm invocations.
 const sql = postgres(process.env.POSTGRES_URL);
@@ -11,6 +12,16 @@ const ADMIN_NOTIFY = process.env.ADMIN_NOTIFY_EMAIL || "kyle@threeweeksahead.com
 // Unguessable Vercel Blob URL of the lead-magnet PDF (see scripts/upload-guide.mjs).
 // Delivered only to opt-ins — never linked from the public site or socials.
 const GUIDE_URL = process.env.GUIDE_PDF_URL || "";
+
+const SITE_URL = process.env.SITE_URL || "https://threeweeksahead.com";
+const UNSUB_SECRET = process.env.UNSUBSCRIBE_SECRET || "";
+
+// Signed one-click unsubscribe link (verified by api/unsubscribe.js). Drives
+// both the visible footer link and the List-Unsubscribe headers Gmail rewards.
+const unsubUrl = (email) => {
+  const t = crypto.createHmac("sha256", UNSUB_SECRET).update(email).digest("hex");
+  return `${SITE_URL}/api/unsubscribe?e=${encodeURIComponent(email)}&t=${t}`;
+};
 
 // Hybrid newsletter: Neon is the system of record, beehiiv is the broadcast
 // tool. We mirror new subscribers into beehiiv but tell it NOT to send its own
@@ -57,7 +68,7 @@ const downloadButton = (url) => `
             </td></tr>
           </table>`;
 
-const welcomeHtml = (guideUrl) => `<!DOCTYPE html>
+const welcomeHtml = (guideUrl, unsub) => `<!DOCTYPE html>
 <html><body style="margin:0;background:#FAF7F2;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#1F1A14;">
   <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#FAF7F2;padding:40px 16px;">
     <tr><td align="center">
@@ -72,12 +83,12 @@ const welcomeHtml = (guideUrl) => `<!DOCTYPE html>
           <p style="font-size:16px;line-height:1.6;margin:0;color:#1F1A14;">— Kyle</p>
         </td></tr>
       </table>
-      <p style="font-size:12px;color:#5C5346;margin:16px 0 0;">threeweeksahead.com</p>
+      <p style="font-size:12px;color:#5C5346;margin:16px 0 0;">threeweeksahead.com${unsub ? ` &middot; <a href="${unsub}" style="color:#5C5346;text-decoration:underline;">Unsubscribe</a>` : ""}</p>
     </td></tr>
   </table>
 </body></html>`;
 
-const welcomeText = (guideUrl) => `Your guide is ready.
+const welcomeText = (guideUrl, unsub) => `Your guide is ready.
 
 Here's The First 30 Days After Bypass — a short, honest guide to what the
 first month actually looks like. No medical advice; just what's normal,
@@ -90,7 +101,8 @@ I'll only email when there's something worth saying: a new video, a
 question that helped someone else, something I wish I'd known.
 
 — Kyle
-threeweeksahead.com`;
+threeweeksahead.com
+${unsub ? `\nUnsubscribe: ${unsub}` : ""}`;
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -125,6 +137,18 @@ export default async function handler(req, res) {
   // Only send the welcome to brand-new subscribers, to avoid re-mailing
   // someone who resubmits the form.
   if (isNew) {
+    const unsub = UNSUB_SECRET ? unsubUrl(email) : "";
+    // One-click unsubscribe (RFC 8058) — strong inboxing signal for Gmail/Apple.
+    const headers = unsub
+      ? [
+          {
+            Name: "List-Unsubscribe",
+            Value: `<${unsub}>, <mailto:${ADMIN_NOTIFY}?subject=unsubscribe>`,
+          },
+          { Name: "List-Unsubscribe-Post", Value: "List-Unsubscribe=One-Click" },
+        ]
+      : undefined;
+
     try {
       await ses.send(
         new SendEmailCommand({
@@ -134,9 +158,10 @@ export default async function handler(req, res) {
             Simple: {
               Subject: { Data: WELCOME_SUBJECT, Charset: "UTF-8" },
               Body: {
-                Html: { Data: welcomeHtml(GUIDE_URL), Charset: "UTF-8" },
-                Text: { Data: welcomeText(GUIDE_URL), Charset: "UTF-8" },
+                Html: { Data: welcomeHtml(GUIDE_URL, unsub), Charset: "UTF-8" },
+                Text: { Data: welcomeText(GUIDE_URL, unsub), Charset: "UTF-8" },
               },
+              ...(headers ? { Headers: headers } : {}),
             },
           },
         })
