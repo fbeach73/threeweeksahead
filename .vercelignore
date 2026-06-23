@@ -1,0 +1,10 @@
+# Never upload these on `vercel deploy` (mirrors .gitignore privacy rules).
+# Production deploys come from git, which already excludes these — this is a
+# safety net for accidental local CLI deploys.
+node_modules/
+.env
+.env.*
+.vercel
+claude-project-files/
+downloads/
+random_ignore/
