@@ -8,6 +8,10 @@ const ses = new SESv2Client({ region: process.env.AWS_REGION || "us-east-1" });
 const FROM = process.env.SES_FROM_EMAIL || "kyle@threeweeksahead.com";
 const ADMIN_NOTIFY = process.env.ADMIN_NOTIFY_EMAIL || "kyle@threeweeksahead.com";
 
+// Unguessable Vercel Blob URL of the lead-magnet PDF (see scripts/upload-guide.mjs).
+// Delivered only to opt-ins — never linked from the public site or socials.
+const GUIDE_URL = process.env.GUIDE_PDF_URL || "";
+
 // Hybrid newsletter: Neon is the system of record, beehiiv is the broadcast
 // tool. We mirror new subscribers into beehiiv but tell it NOT to send its own
 // welcome — the SES welcome above is the only welcome. Best-effort; a beehiiv
@@ -42,16 +46,27 @@ async function syncToBeehiiv(email) {
   }
 }
 
-const WELCOME_SUBJECT = "Thanks — you're on the list";
+const WELCOME_SUBJECT = "Your guide: The First 30 Days After Bypass";
 
-const WELCOME_HTML = `<!DOCTYPE html>
+// Email-client-safe download button (table-based). Only rendered when the
+// guide URL is configured, so the welcome still sends if it isn't.
+const downloadButton = (url) => `
+          <table role="presentation" cellspacing="0" cellpadding="0" style="margin:8px 0 28px;">
+            <tr><td align="center" bgcolor="#C4641A" style="border-radius:8px;">
+              <a href="${url}" style="display:inline-block;padding:14px 28px;font-size:16px;font-weight:600;color:#FFFFFF;text-decoration:none;border-radius:8px;">Download your guide (PDF) →</a>
+            </td></tr>
+          </table>`;
+
+const welcomeHtml = (guideUrl) => `<!DOCTYPE html>
 <html><body style="margin:0;background:#FAF7F2;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#1F1A14;">
   <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#FAF7F2;padding:40px 16px;">
     <tr><td align="center">
       <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:520px;background:#FFFFFF;border:1px solid #E8E1D5;border-radius:12px;padding:40px;">
         <tr><td>
           <div style="width:40px;height:2px;background:#C4641A;margin-bottom:24px;"></div>
-          <h1 style="font-family:Georgia,'Times New Roman',serif;font-size:24px;font-weight:600;line-height:1.3;margin:0 0 20px;color:#1F1A14;">Thanks — you're on the list.</h1>
+          <h1 style="font-family:Georgia,'Times New Roman',serif;font-size:24px;font-weight:600;line-height:1.3;margin:0 0 20px;color:#1F1A14;">Your guide is ready.</h1>
+          <p style="font-size:16px;line-height:1.6;margin:0 0 16px;color:#1F1A14;">Here's <em>The First 30 Days After Bypass</em> — a short, honest guide to what the first month actually looks like. No medical advice; just what's normal, what surprised me, and what to watch for.</p>
+          ${guideUrl ? downloadButton(guideUrl) : ""}
           <p style="font-size:16px;line-height:1.6;margin:0 0 16px;color:#1F1A14;">This is a peer-to-peer cardiac recovery channel — someone a few weeks ahead, turning around to light the path.</p>
           <p style="font-size:16px;line-height:1.6;margin:0 0 24px;color:#1F1A14;">I'll only email when there's something worth saying: a new video, a question that helped someone else, something I wish I'd known.</p>
           <p style="font-size:16px;line-height:1.6;margin:0;color:#1F1A14;">— Kyle</p>
@@ -62,8 +77,12 @@ const WELCOME_HTML = `<!DOCTYPE html>
   </table>
 </body></html>`;
 
-const WELCOME_TEXT = `Thanks — you're on the list.
+const welcomeText = (guideUrl) => `Your guide is ready.
 
+Here's The First 30 Days After Bypass — a short, honest guide to what the
+first month actually looks like. No medical advice; just what's normal,
+what surprised me, and what to watch for.
+${guideUrl ? `\nDownload your guide (PDF):\n${guideUrl}\n` : ""}
 This is a peer-to-peer cardiac recovery channel — someone a few weeks
 ahead, turning around to light the path.
 
@@ -115,8 +134,8 @@ export default async function handler(req, res) {
             Simple: {
               Subject: { Data: WELCOME_SUBJECT, Charset: "UTF-8" },
               Body: {
-                Html: { Data: WELCOME_HTML, Charset: "UTF-8" },
-                Text: { Data: WELCOME_TEXT, Charset: "UTF-8" },
+                Html: { Data: welcomeHtml(GUIDE_URL), Charset: "UTF-8" },
+                Text: { Data: welcomeText(GUIDE_URL), Charset: "UTF-8" },
               },
             },
           },
