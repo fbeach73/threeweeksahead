@@ -175,6 +175,19 @@
   .cta-secondary { color: var(--accent-text); text-decoration: none; font-weight: 600; font-size: 15px; }
   .cta-secondary:hover { text-decoration: underline; }
 
+  /* ---------- RESOURCES ---------- */
+  .resource-list { list-style: none; margin-top: 4px; }
+  .resource-item { border-top: 1px solid var(--line); padding: 22px 0; }
+  .resource-item:last-child { border-bottom: 1px solid var(--line); }
+  .resource-link {
+    display: inline-flex; align-items: baseline; gap: 8px;
+    font-family: 'Newsreader', serif; font-size: 20px; font-weight: 600;
+    color: var(--ink); text-decoration: none; transition: color 150ms ease;
+  }
+  .resource-link:hover { color: var(--accent-text); }
+  .resource-link .ext { font-size: 14px; color: var(--accent-text); }
+  .resource-desc { margin-top: 6px; margin-bottom: 0; font-size: 15px; line-height: 1.55; color: var(--ink-soft); }
+
   /* ---------- FOOTER ---------- */
   footer { background: #1F1A14; color: #FFFFFF; padding: 48px 32px 32px; text-align: center; }
   .footer-brand { font-family: 'Newsreader', serif; font-weight: 600; font-size: 20px; margin-bottom: 8px; }
@@ -264,6 +277,29 @@
     <p class="citation" id="ref1">
       <strong>1.</strong> Colella TJF, King-Shier K. <em>The effect of a peer support intervention on early recovery outcomes in men recovering from coronary bypass surgery: a randomized controlled trial.</em> European Journal of Cardiovascular Nursing. 2018;17(5):408&ndash;417. <a href="https://doi.org/10.1177/1474515117725521" target="_blank" rel="noopener">doi.org/10.1177/1474515117725521</a>
     </p>
+  </div>
+</section>
+
+<!-- RESOURCES -->
+<section id="resources" style="background: var(--bg-card);">
+  <div class="container">
+    <div class="eyebrow">More Support</div>
+    <h2>Other places to turn.</h2>
+    <p style="margin-bottom: 8px;">A few trusted organizations for peer support and recovery — each opens in a new tab.</p>
+    <ul class="resource-list">
+      <li class="resource-item">
+        <a class="resource-link" href="https://mendedhearts.org/" target="_blank" rel="noopener noreferrer">Mended Hearts <span class="ext" aria-hidden="true">&#8599;</span></a>
+        <p class="resource-desc">The nation's largest cardiac peer-to-peer support network — trained visitors, local chapters, and an online community for patients and families.</p>
+      </li>
+      <li class="resource-item">
+        <a class="resource-link" href="https://supportnetwork.heart.org/s/group/0F94T000000D1kRSAS/bypasscabg-patient-family-support" target="_blank" rel="noopener noreferrer">AHA Support Network &mdash; Bypass / CABG <span class="ext" aria-hidden="true">&#8599;</span></a>
+        <p class="resource-desc">An online community from the American Heart Association for bypass patients, families, and caregivers.</p>
+      </li>
+      <li class="resource-item">
+        <a class="resource-link" href="https://www.heart.org/en/health-topics/cardiac-rehab" target="_blank" rel="noopener noreferrer">American Heart Association &mdash; Cardiac Rehab <span class="ext" aria-hidden="true">&#8599;</span></a>
+        <p class="resource-desc">What cardiac rehab is and why it matters &mdash; the program I tell everyone to say yes to.</p>
+      </li>
+    </ul>
   </div>
 </section>
 </main>
