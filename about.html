@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Peer Support — Three Weeks Ahead</title>
+<meta name="description" content="Why this cardiac recovery channel exists. I built it on instinct — then found the research agrees: peer support measurably helps men recovering from bypass surgery.">
+<link rel="canonical" href="https://threeweeksahead.com/about.html">
+<meta property="og:title" content="Why Peer Support — Three Weeks Ahead">
+<meta property="og:site_name" content="Three Weeks Ahead">
+<meta property="og:locale" content="en_US">
+<meta property="og:image:alt" content="Three Weeks Ahead — a heartbeat line rising into a heart">
+<meta property="og:description" content="I built this on instinct. Then the research agreed: peer support helps people recovering from bypass surgery. Three weeks ahead, lighting the path.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://threeweeksahead.com/about.html">
+<meta property="og:image" content="https://threeweeksahead.com/og-card.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Why Peer Support — Three Weeks Ahead">
+<meta name="twitter:description" content="I built this on instinct. Then the research agreed: peer support helps people recovering from bypass surgery.">
+<meta name="twitter:image" content="https://threeweeksahead.com/og-card.jpg">
+<meta name="twitter:image:alt" content="Three Weeks Ahead — a heartbeat line rising into a heart">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:wght@500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:wght@500;600&display=swap" rel="stylesheet"></noscript>
+<style>
+  :root {
+    --bg: #FAF7F2;
+    --bg-card: #FFFFFF;
+    --ink: #1F1A14;
+    --ink-soft: #5C5346;
+    --line: #E8E1D5;
+    --accent: #C4641A;
+    --accent-cta: #A8531A;
+    --accent-cta-hover: #8C4514;
+    --accent-text: #9A4A12;
+    --accent-soft: #FBF1E5;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .serif { font-family: 'Newsreader', Georgia, serif; }
+
+  /* ---------- NAV ---------- */
+  nav {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    z-index: 10;
+    padding: 22px clamp(24px, 6vw, 80px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .nav-mark {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    object-fit: cover;
+    flex: none;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.3), 0 6px 20px rgba(196,100,26,0.45);
+    transition: box-shadow 200ms ease;
+  }
+  .nav-logo:hover .nav-mark { box-shadow: 0 0 0 1px rgba(255,255,255,0.45), 0 6px 28px rgba(196,100,26,0.62); }
+  .nav-brand { font-family: 'Newsreader', serif; font-weight: 600; font-size: 18px; color: #FFFFFF; letter-spacing: 0.02em; }
+  .nav-links { display: flex; align-items: center; gap: clamp(14px, 3vw, 28px); }
+  .nav-link {
+    color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 500;
+    letter-spacing: 0.02em; opacity: 0.88;
+    transition: opacity 150ms, background 160ms ease, border-color 160ms ease;
+  }
+  .nav-link:hover { opacity: 1; }
+  .nav-cta { border: 1px solid rgba(255,255,255,0.45); padding: 9px 18px; border-radius: 999px; opacity: 0.95; }
+  .nav-cta:hover { background: rgba(255,255,255,0.14); border-color: #FFFFFF; }
+
+  /* ---------- PAGE HEADER (slim dark band) ---------- */
+  .page-head {
+    position: relative;
+    background:
+      linear-gradient(90deg, rgba(18,14,10,0.92) 0%, rgba(18,14,10,0.78) 50%, rgba(196,100,26,0.20) 100%),
+      #1F1A14;
+    color: #FFFFFF;
+    padding: 132px clamp(24px, 6vw, 80px) 72px;
+    overflow: hidden;
+  }
+  .page-head-inner { position: relative; max-width: 720px; margin: 0 auto; padding-left: 30px; }
+  .page-head-inner::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 6px; bottom: 6px;
+    width: 2px; border-radius: 2px;
+    background: linear-gradient(180deg, #F0A867 0%, var(--accent) 18%, rgba(255,255,255,0.30) 48%, rgba(255,255,255,0.10) 100%);
+  }
+  .page-head-eyebrow {
+    font-size: 13px; font-weight: 600; letter-spacing: 0.2em;
+    text-transform: uppercase; color: #F0C9A6; margin-bottom: 18px;
+  }
+  .page-head h1 {
+    font-family: 'Newsreader', serif;
+    font-size: clamp(30px, 5.4vw, 50px);
+    font-weight: 500; line-height: 1.1; letter-spacing: -0.015em;
+  }
+  .page-head h1 .accent { display: block; font-style: italic; color: #F0A867; margin-top: 0.12em; }
+
+  /* ---------- SECTIONS ---------- */
+  section { padding: 80px 32px; }
+  .container { max-width: 720px; margin: 0 auto; }
+
+  .eyebrow {
+    font-size: 13px; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--accent-text); margin-bottom: 16px;
+  }
+  h2 {
+    font-family: 'Newsreader', serif;
+    font-size: clamp(26px, 3.4vw, 32px);
+    font-weight: 600; line-height: 1.2; letter-spacing: -0.01em; margin-bottom: 24px;
+  }
+  p { color: var(--ink-soft); margin-bottom: 18px; }
+  p.ink { color: var(--ink); }
+
+  /* ---------- PROSE ---------- */
+  .prose p { font-size: 18px; line-height: 1.75; color: var(--ink); }
+  .prose .lead-line { font-size: 21px; line-height: 1.5; font-weight: 500; color: var(--ink); margin-bottom: 28px; }
+  .prose .serif-em { font-family: 'Newsreader', serif; font-style: italic; }
+
+  .pullquote {
+    font-family: 'Newsreader', serif;
+    font-size: clamp(22px, 3vw, 28px);
+    line-height: 1.3;
+    color: var(--ink);
+    border-left: 3px solid var(--accent);
+    padding: 4px 0 4px 24px;
+    margin: 36px 0;
+  }
+
+  .signature { margin-top: 32px; font-style: italic; font-size: 18px; color: var(--ink); }
+
+  /* ---------- CITATION ---------- */
+  .citation {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+  .citation a { color: var(--accent-text); }
+
+  /* ---------- CTA ROW ---------- */
+  .cta-row { margin-top: 44px; display: flex; gap: 18px; flex-wrap: wrap; align-items: center; }
+  .cta {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--accent-cta); color: #FFFFFF;
+    padding: 14px 28px; border-radius: 10px;
+    text-decoration: none; font-weight: 600; font-size: 16px;
+    box-shadow: 0 8px 24px rgba(168,83,26,0.32);
+    transition: background 150ms ease, box-shadow 200ms ease, transform 150ms ease;
+  }
+  .cta .arr { transition: transform 200ms ease; }
+  .cta:hover { background: var(--accent-cta-hover); box-shadow: 0 10px 30px rgba(168,83,26,0.45); transform: translateY(-2px); }
+  .cta:hover .arr { transform: translateX(4px); }
+  .cta-secondary { color: var(--accent-text); text-decoration: none; font-weight: 600; font-size: 15px; }
+  .cta-secondary:hover { text-decoration: underline; }
+
+  /* ---------- FOOTER ---------- */
+  footer { background: #1F1A14; color: #FFFFFF; padding: 48px 32px 32px; text-align: center; }
+  .footer-brand { font-family: 'Newsreader', serif; font-weight: 600; font-size: 20px; margin-bottom: 8px; }
+  .footer-tag { font-size: 14px; opacity: 0.7; margin-bottom: 24px; }
+  .footer-links { display: flex; gap: 24px; justify-content: center; margin-bottom: 32px; flex-wrap: wrap; }
+  .footer-links a { color: #FFFFFF; opacity: 0.8; font-size: 14px; text-decoration: none; transition: opacity 150ms; }
+  .footer-links a:hover { opacity: 1; }
+  .footer-copy { font-size: 13px; opacity: 0.5; }
+
+  @media (max-width: 720px) {
+    section { padding: 56px 24px; }
+    nav { padding: 18px 20px; }
+    .nav-links .nav-link:not(.nav-cta) { display: none; }
+    .nav-brand { font-size: 16px; }
+    .nav-mark { width: 40px; height: 40px; }
+    .page-head { padding: 104px 22px 56px; }
+    .page-head-inner { padding-left: 20px; }
+    .prose p { font-size: 17px; }
+    .footer-links { gap: 16px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .nav-mark, .cta, .cta:hover { transition: none; transform: none; }
+  }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Why Peer Support",
+  "about": "Peer support in recovery from coronary artery bypass graft (CABG) surgery",
+  "author": { "@type": "Person", "name": "Kyle", "url": "https://threeweeksahead.com/" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Three Weeks Ahead",
+    "logo": { "@type": "ImageObject", "url": "https://threeweeksahead.com/favicon.png" }
+  },
+  "mainEntityOfPage": "https://threeweeksahead.com/about.html",
+  "citation": "Colella TJF, King-Shier K. The effect of a peer support intervention on early recovery outcomes in men recovering from coronary bypass surgery: a randomized controlled trial. European Journal of Cardiovascular Nursing. 2018;17(5):408-417. doi:10.1177/1474515117725521"
+}
+</script>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo" aria-label="Three Weeks Ahead — home">
+    <img src="/logo.png" alt="" class="nav-mark" width="44" height="44">
+    <span class="nav-brand">Three Weeks Ahead</span>
+  </a>
+  <div class="nav-links">
+    <a href="https://www.youtube.com/@threeweeksahead" class="nav-link" target="_blank" rel="noopener">Watch</a>
+    <a href="/#guide" class="nav-link nav-cta">Get the Guide</a>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<header class="page-head">
+  <div class="page-head-inner">
+    <div class="page-head-eyebrow">Why This Exists</div>
+    <h1>Why peer support<span class="accent">isn't just a nice idea.</span></h1>
+  </div>
+</header>
+
+<main>
+<section class="prose">
+  <div class="container">
+    <p class="lead-line">I didn't start this because of a study. I started it because I'd just lived it.</p>
+
+    <p>When I came out of bypass surgery, what I wanted more than anything wasn't another pamphlet or another diagram. I wanted to talk to someone who'd already walked the road I was on — someone a few weeks ahead who could say <span class="serif-em">"yeah, that happened to me too, and here's what came next."</span> I couldn't find that person. So I decided to become it.</p>
+
+    <p>I built this channel and guide on instinct. I just <em>knew</em> it would help, because I knew exactly how alone it felt.</p>
+
+    <div class="pullquote">Later, I went looking to see if the research backed up the gut feeling. It does.</div>
+
+    <p>A randomized controlled trial of 185 men recovering from bypass surgery found that those who received regular peer support — contact with someone who'd been through it — had <strong>fewer emergency-room and doctor visits in the first 12 weeks of recovery</strong> than those who didn't.<a href="#ref1" id="cite1" aria-label="See citation 1"><sup>1</sup></a></p>
+
+    <p>The researchers were careful: peer support wasn't a cure-all, and it didn't erase the emotional lows. But the core idea held up — having someone ahead of you on the path makes the recovery measurably easier to navigate.</p>
+
+    <p class="ink">That's all this is. I'm three weeks ahead of you. I made it. I'm turning around to light the path.</p>
+
+    <p class="signature">— Kyle</p>
+
+    <div class="cta-row">
+      <a href="/#guide" class="cta">Get the First 30 Days Guide <span class="arr">→</span></a>
+      <a href="/#ask" class="cta-secondary">Ask me a question</a>
+    </div>
+
+    <p class="citation" id="ref1">
+      <strong>1.</strong> Colella TJF, King-Shier K. <em>The effect of a peer support intervention on early recovery outcomes in men recovering from coronary bypass surgery: a randomized controlled trial.</em> European Journal of Cardiovascular Nursing. 2018;17(5):408&ndash;417. <a href="https://doi.org/10.1177/1474515117725521" target="_blank" rel="noopener">doi.org/10.1177/1474515117725521</a>
+    </p>
+  </div>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Three Weeks Ahead</div>
+  <div class="footer-tag">Turning around to light the path.</div>
+  <div class="footer-links">
+    <a href="https://www.youtube.com/@threeweeksahead" target="_blank" rel="noopener">YouTube</a>
+    <a href="https://www.instagram.com/3weeksahead/" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.facebook.com/threeweeksahead/" target="_blank" rel="noopener">Facebook</a>
+    <a href="/about.html">Why Peer Support</a>
+    <a href="/#guide">Get the Guide</a>
+    <a href="/#ask">Ask a Question</a>
+  </div>
+  <div class="footer-copy">© 2026 Three Weeks Ahead · Not medical advice</div>
+</footer>
+
+</body>
+</html>
