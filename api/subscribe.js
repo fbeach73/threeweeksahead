@@ -23,6 +23,16 @@ const unsubUrl = (email) => {
   return `${SITE_URL}/api/unsubscribe?e=${encodeURIComponent(email)}&t=${t}`;
 };
 
+// Same-domain, signed download link (verified by api/guide.js, which 302s to
+// the blob). Keeps every link in the welcome on threeweeksahead.com for Gmail
+// reputation. Falls back to the raw blob URL if no secret is configured.
+const guideUrl = (email) => {
+  if (!GUIDE_URL) return "";
+  if (!UNSUB_SECRET) return GUIDE_URL;
+  const t = crypto.createHmac("sha256", UNSUB_SECRET).update(`guide:${email}`).digest("hex");
+  return `${SITE_URL}/api/guide?e=${encodeURIComponent(email)}&t=${t}`;
+};
+
 // Hybrid newsletter: Neon is the system of record, beehiiv is the broadcast
 // tool. We mirror new subscribers into beehiiv but tell it NOT to send its own
 // welcome — the SES welcome above is the only welcome. Best-effort; a beehiiv
@@ -140,6 +150,7 @@ export default async function handler(req, res) {
   // someone who resubmits the form.
   if (isNew) {
     const unsub = UNSUB_SECRET ? unsubUrl(email) : "";
+    const guide = guideUrl(email);
     // One-click unsubscribe (RFC 8058) — strong inboxing signal for Gmail/Apple.
     const headers = unsub
       ? [
@@ -160,8 +171,8 @@ export default async function handler(req, res) {
             Simple: {
               Subject: { Data: WELCOME_SUBJECT, Charset: "UTF-8" },
               Body: {
-                Html: { Data: welcomeHtml(GUIDE_URL, unsub), Charset: "UTF-8" },
-                Text: { Data: welcomeText(GUIDE_URL, unsub), Charset: "UTF-8" },
+                Html: { Data: welcomeHtml(guide, unsub), Charset: "UTF-8" },
+                Text: { Data: welcomeText(guide, unsub), Charset: "UTF-8" },
               },
               ...(headers ? { Headers: headers } : {}),
             },
