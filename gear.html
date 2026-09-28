@@ -3,23 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Why Peer Support — Three Weeks Ahead</title>
-<meta name="description" content="Why this cardiac recovery channel exists. I built it on instinct — then found the research agrees: peer support measurably helps men recovering from bypass surgery.">
-<link rel="canonical" href="https://threeweeksahead.com/about.html">
-<meta property="og:title" content="Why Peer Support — Three Weeks Ahead">
+<title>Recovery Gear — Three Weeks Ahead</title>
+<meta name="description" content="The handful of things that actually helped after heart bypass surgery, from someone who's been through it. A short, honest recovery gear list. No fluff.">
+<link rel="canonical" href="https://threeweeksahead.com/gear">
+<meta property="og:title" content="Recovery Gear — Three Weeks Ahead">
 <meta property="og:site_name" content="Three Weeks Ahead">
 <meta property="og:locale" content="en_US">
 <meta property="og:image:alt" content="Three Weeks Ahead — a heartbeat line rising into a heart">
-<meta property="og:description" content="I built this on instinct. Then the research agreed: peer support helps people recovering from bypass surgery. Three weeks ahead, lighting the path.">
+<meta property="og:description" content="The handful of things that actually helped after bypass surgery. From someone a few weeks ahead of you.">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://threeweeksahead.com/about.html">
+<meta property="og:url" content="https://threeweeksahead.com/gear">
 <meta property="og:image" content="https://threeweeksahead.com/og-card.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Why Peer Support — Three Weeks Ahead">
-<meta name="twitter:description" content="I built this on instinct. Then the research agreed: peer support helps people recovering from bypass surgery.">
+<meta name="twitter:title" content="Recovery Gear — Three Weeks Ahead">
+<meta name="twitter:description" content="The handful of things that actually helped after bypass surgery. From someone a few weeks ahead of you.">
 <meta name="twitter:image" content="https://threeweeksahead.com/og-card.jpg">
 <meta name="twitter:image:alt" content="Three Weeks Ahead — a heartbeat line rising into a heart">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
@@ -211,23 +211,26 @@
   @media (prefers-reduced-motion: reduce) {
     .nav-mark, .cta, .cta:hover { transition: none; transform: none; }
   }
+
+  /* ---------- GEAR ---------- */
+  .gear-intro p { font-size: 18px; line-height: 1.7; color: var(--ink); }
+  .gear-list { list-style: none; margin-top: 8px; counter-reset: gear; }
+  .gear-item { border-top: 1px solid var(--line); padding: 26px 0; display: grid; grid-template-columns: 44px 1fr; gap: 16px; }
+  .gear-item:last-child { border-bottom: 1px solid var(--line); }
+  .gear-num { font-family: 'Newsreader', serif; font-size: 22px; font-weight: 600; color: var(--accent-text); line-height: 1.2; padding-top: 2px; }
+  .gear-name { font-family: 'Newsreader', serif; font-size: 22px; font-weight: 600; color: var(--ink); line-height: 1.25; margin-bottom: 8px; }
+  .gear-why { font-size: 16px; line-height: 1.6; color: var(--ink-soft); margin-bottom: 12px; }
+  .gear-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: var(--accent-text); text-decoration: none; font-weight: 600; font-size: 15px;
+  }
+  .gear-link:hover { text-decoration: underline; }
+  .gear-link .arr { transition: transform 200ms ease; }
+  .gear-link:hover .arr { transform: translateX(3px); }
+  .gear-when { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-text); background: var(--accent-soft); padding: 3px 9px; border-radius: 999px; margin-bottom: 10px; }
+  .disclosure { margin-top: 40px; padding: 18px 20px; background: var(--accent-soft); border-radius: 10px; font-size: 14px; line-height: 1.6; color: var(--ink-soft); }
+  @media (max-width: 720px) { .gear-item { grid-template-columns: 34px 1fr; gap: 12px; } .gear-num, .gear-name { font-size: 20px; } }
 </style>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Why Peer Support",
-  "about": "Peer support in recovery from coronary artery bypass graft (CABG) surgery",
-  "author": { "@type": "Person", "name": "Kyle", "url": "https://threeweeksahead.com/" },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Three Weeks Ahead",
-    "logo": { "@type": "ImageObject", "url": "https://threeweeksahead.com/favicon.png" }
-  },
-  "mainEntityOfPage": "https://threeweeksahead.com/about.html",
-  "citation": "Colella TJF, King-Shier K. The effect of a peer support intervention on early recovery outcomes in men recovering from coronary bypass surgery: a randomized controlled trial. European Journal of Cardiovascular Nursing. 2018;17(5):408-417. doi:10.1177/1474515117725521"
-}
-</script>
 </head>
 <body>
 
@@ -245,61 +248,119 @@
 <!-- PAGE HEADER -->
 <header class="page-head">
   <div class="page-head-inner">
-    <div class="page-head-eyebrow">Why This Exists</div>
-    <h1>Why peer support<span class="accent">isn't just a nice idea.</span></h1>
+    <div class="page-head-eyebrow">Recovery Gear</div>
+    <h1>The short list of things<span class="accent">that actually helped.</span></h1>
   </div>
 </header>
 
 <main>
-<section class="prose">
+<section class="gear-intro">
   <div class="container">
-    <p class="lead-line">I didn't start this because of a study. I started it because I'd just lived it.</p>
+    <p class="lead-line" style="font-size: 21px; line-height: 1.5; font-weight: 500; color: var(--ink); margin-bottom: 28px;">Nobody hands you a packing list for open heart surgery. This is mine.</p>
+    <p>None of this is fancy and none of it is medical. It's the stuff that made the first month at home easier, sorted by when you'll want it. If you can, get the "before surgery" items lined up ahead of time. You will not feel like shopping afterward.</p>
+    <p>Your hospital may give you some of these (mine sent me home with a spirometer). Ask before you buy.</p>
 
-    <p>When I came out of bypass surgery, what I wanted more than anything wasn't another pamphlet or another diagram. I wanted to talk to someone who'd already walked the road I was on — someone a few weeks ahead who could say <span class="serif-em">"yeah, that happened to me too, and here's what came next."</span> I couldn't find that person. So I decided to become it.</p>
-
-    <p>I built this channel and guide on instinct. I just <em>knew</em> it would help, because I knew exactly how alone it felt.</p>
-
-    <div class="pullquote">Later, I went looking to see if the research backed up the gut feeling. It does.</div>
-
-    <p>A randomized controlled trial of 185 men recovering from bypass surgery found that those who received regular peer support — contact with someone who'd been through it — had <strong>fewer emergency-room and doctor visits in the first 12 weeks of recovery</strong> than those who didn't.<a href="#ref1" id="cite1" aria-label="See citation 1"><sup>1</sup></a></p>
-
-    <p>The researchers were careful: peer support wasn't a cure-all, and it didn't erase the emotional lows. But the core idea held up — having someone ahead of you on the path makes the recovery measurably easier to navigate.</p>
-
-    <p class="ink">That's all this is. I'm three weeks ahead of you. I made it. I'm turning around to light the path.</p>
-
-    <p class="signature">— Kyle</p>
-
-    <div class="cta-row">
-      <a href="/#guide" class="cta">Get the First 30 Days Guide <span class="arr">→</span></a>
-      <a href="/#ask" class="cta-secondary">Ask me a question</a>
-    </div>
-
-    <p class="citation" id="ref1">
-      <strong>1.</strong> Colella TJF, King-Shier K. <em>The effect of a peer support intervention on early recovery outcomes in men recovering from coronary bypass surgery: a randomized controlled trial.</em> European Journal of Cardiovascular Nursing. 2018;17(5):408&ndash;417. <a href="https://doi.org/10.1177/1474515117725521" target="_blank" rel="noopener">doi.org/10.1177/1474515117725521</a>
-    </p>
-  </div>
-</section>
-
-<!-- RESOURCES -->
-<section id="resources" style="background: var(--bg-card);">
-  <div class="container">
-    <div class="eyebrow">More Support</div>
-    <h2>Other places to turn.</h2>
-    <p style="margin-bottom: 8px;">A few trusted organizations for peer support and recovery — each opens in a new tab.</p>
-    <ul class="resource-list">
-      <li class="resource-item">
-        <a class="resource-link" href="https://mendedhearts.org/" target="_blank" rel="noopener noreferrer">Mended Hearts <span class="ext" aria-hidden="true">&#8599;</span></a>
-        <p class="resource-desc">The nation's largest cardiac peer-to-peer support network — trained visitors, local chapters, and an online community for patients and families.</p>
+    <ul class="gear-list">
+      <li class="gear-item">
+        <div class="gear-num" aria-hidden="true">01</div>
+        <div>
+          <span class="gear-when">Before surgery</span>
+          <div class="gear-name">A firm cough pillow</div>
+          <p class="gear-why">The single best tip in the guide. Brace it hard against your chest before every cough, sneeze or laugh. A heart-shaped sternum pillow is made for exactly this, but any firm pillow you can grip with both hands works.</p>
+          <a class="gear-link" href="https://www.amazon.com/s?k=heart+surgery+pillow+sternum&tag=3weeks-ahead-20" target="_blank" rel="noopener sponsored">See it on Amazon <span class="arr">&rarr;</span></a>
+        </div>
       </li>
-      <li class="resource-item">
-        <a class="resource-link" href="https://supportnetwork.heart.org/s/group/0F94T000000D1kRSAS/bypasscabg-patient-family-support" target="_blank" rel="noopener noreferrer">AHA Support Network &mdash; Bypass / CABG <span class="ext" aria-hidden="true">&#8599;</span></a>
-        <p class="resource-desc">An online community from the American Heart Association for bypass patients, families, and caregivers.</p>
+      <li class="gear-item">
+        <div class="gear-num" aria-hidden="true">02</div>
+        <div>
+          <span class="gear-when">Before surgery</span>
+          <div class="gear-name">A wedge pillow</div>
+          <p class="gear-why">You will not be able to lie flat for a while, and you can't push yourself up with your arms. A wedge keeps you propped without a stack of pillows sliding around at 3 a.m.</p>
+          <a class="gear-link" href="https://www.amazon.com/s?k=wedge+pillow+for+sleeping+after+surgery&tag=3weeks-ahead-20" target="_blank" rel="noopener sponsored">See it on Amazon <span class="arr">&rarr;</span></a>
+        </div>
       </li>
-      <li class="resource-item">
-        <a class="resource-link" href="https://www.heart.org/en/health-topics/cardiac-rehab" target="_blank" rel="noopener noreferrer">American Heart Association &mdash; Cardiac Rehab <span class="ext" aria-hidden="true">&#8599;</span></a>
-        <p class="resource-desc">What cardiac rehab is and why it matters &mdash; the program I tell everyone to say yes to.</p>
+      <li class="gear-item">
+        <div class="gear-num" aria-hidden="true">03</div>
+        <div>
+          <span class="gear-when">Before surgery</span>
+          <div class="gear-name">A shower chair</div>
+          <p class="gear-why">A sit-down shower became my favourite thing in the world. Fifteen minutes to sit, get clean, breathe and take stock. Standing that long in week one is not happening.</p>
+          <a class="gear-link" href="https://www.amazon.com/s?k=shower+chair&tag=3weeks-ahead-20" target="_blank" rel="noopener sponsored">See it on Amazon <span class="arr">&rarr;</span></a>
+        </div>
+      </li>
+      <li class="gear-item">
+        <div class="gear-num" aria-hidden="true">04</div>
+        <div>
+          <span class="gear-when">Before surgery</span>
+          <div class="gear-name">Shirts that button or zip in front</div>
+          <p class="gear-why">For the first few weeks you can't raise your arms over your head. A couple of button-front shirts and a zip hoodie mean you can get dressed without help or pain.</p>
+          <a class="gear-link" href="https://www.amazon.com/s?k=mens+zip+up+hoodie&tag=3weeks-ahead-20" target="_blank" rel="noopener sponsored">See it on Amazon <span class="arr">&rarr;</span></a>
+        </div>
+      </li>
+      <li class="gear-item">
+        <div class="gear-num" aria-hidden="true">05</div>
+        <div>
+          <span class="gear-when">Before surgery</span>
+          <div class="gear-name">Slip-on shoes</div>
+          <p class="gear-why">Bending over to tie laces is off the table. Slip-ons let you get out the door for the walks that are doing the actual healing.</p>
+          <a class="gear-link" href="https://www.amazon.com/s?k=mens+slip+on+shoes&tag=3weeks-ahead-20" target="_blank" rel="noopener sponsored">See it on Amazon <span class="arr">&rarr;</span></a>
+        </div>
+      </li>
+      <li class="gear-item">
+        <div class="gear-num" aria-hidden="true">06</div>
+        <div>
+          <span class="gear-when">Before surgery</span>
+          <div class="gear-name">A reacher / grabber tool</div>
+          <p class="gear-why">No bending, no lifting, no twisting. The grabber picks up the thing you dropped without breaking the sternal rules.</p>
+          <a class="gear-link" href="https://www.amazon.com/s?k=reacher+grabber+tool&tag=3weeks-ahead-20" target="_blank" rel="noopener sponsored">See it on Amazon <span class="arr">&rarr;</span></a>
+        </div>
+      </li>
+      <li class="gear-item">
+        <div class="gear-num" aria-hidden="true">07</div>
+        <div>
+          <span class="gear-when">First month home</span>
+          <div class="gear-name">A bathroom scale</div>
+          <p class="gear-why">Sudden weight gain of a few pounds in a day or two can mean fluid, and that's a call-the-doctor sign. Weigh yourself every morning and write it down.</p>
+          <a class="gear-link" href="https://www.amazon.com/s?k=digital+bathroom+scale&tag=3weeks-ahead-20" target="_blank" rel="noopener sponsored">See it on Amazon <span class="arr">&rarr;</span></a>
+        </div>
+      </li>
+      <li class="gear-item">
+        <div class="gear-num" aria-hidden="true">08</div>
+        <div>
+          <span class="gear-when">First month home</span>
+          <div class="gear-name">A home blood pressure monitor</div>
+          <p class="gear-why">You'll be on new medications and your care team will want numbers. A cuff you can use at the kitchen table takes the guesswork out.</p>
+          <a class="gear-link" href="https://www.amazon.com/s?k=upper+arm+blood+pressure+monitor&tag=3weeks-ahead-20" target="_blank" rel="noopener sponsored">See it on Amazon <span class="arr">&rarr;</span></a>
+        </div>
+      </li>
+      <li class="gear-item">
+        <div class="gear-num" aria-hidden="true">09</div>
+        <div>
+          <span class="gear-when">First month home</span>
+          <div class="gear-name">A weekly pill organizer</div>
+          <p class="gear-why">Four new medications, twice a day, in a brain that's still foggy. This is how you stop asking yourself whether you already took them.</p>
+          <a class="gear-link" href="https://www.amazon.com/s?k=weekly+pill+organizer+2+times+a+day&tag=3weeks-ahead-20" target="_blank" rel="noopener sponsored">See it on Amazon <span class="arr">&rarr;</span></a>
+        </div>
+      </li>
+      <li class="gear-item">
+        <div class="gear-num" aria-hidden="true">10</div>
+        <div>
+          <span class="gear-when">First month home</span>
+          <div class="gear-name">Compression socks</div>
+          <p class="gear-why">If they harvested a vein from your leg, it swells. Light compression socks made the walks more comfortable and the evenings less puffy.</p>
+          <a class="gear-link" href="https://www.amazon.com/s?k=compression+socks+men&tag=3weeks-ahead-20" target="_blank" rel="noopener sponsored">See it on Amazon <span class="arr">&rarr;</span></a>
+        </div>
       </li>
     </ul>
+
+    <div class="disclosure">
+      <strong>Disclosure:</strong> As an Amazon Associate I earn from qualifying purchases. The links above are affiliate links. It costs you nothing extra and helps keep the channel and this site going. I only list things I'd tell a friend to get. Nothing on this page is medical advice. Talk to your care team about your own situation.
+    </div>
+
+    <div class="cta-row">
+      <a href="/#guide" class="cta">Get the First 30 Days Guide <span class="arr">&rarr;</span></a>
+      <a href="/#ask" class="cta-secondary">Ask me a question</a>
+    </div>
   </div>
 </section>
 </main>
